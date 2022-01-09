@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Outer Source
+{% endblock %}
+
+{% block page_body_main_content %}
+
+    {% if front %}
+
+        <h1>Req Frontend</h1>
+        <h2>User  <button onclick="getUsers()">Fronted Get User</button></h2>
+        <front_main>
+
+        </front_main>
+        <script src="../static/js/fetch_example.js" ></script>
+    {% else %}
+            <h1>Req Backend</h1>
+            <h2>User</h2>
+            <form action="{{ url_for('req_backend') }}">
+                <input type="submit"  value="Backend Get Users">
+            </form>
+            {% if user %}
+                <h5>id: {{ user.data.id }}</h5>
+                <img src="{{ user.data.avatar }}" alt="Picture">
+                <p> <b>Name: </b>{{ user.data.first_name}} {{ user.data.last_name }}</p>
+            {% endif %}
+    {% endif %}
+
+
+
+{% endblock %}
+

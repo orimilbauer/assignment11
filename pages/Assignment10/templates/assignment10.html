@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% set page_head_title = 'assignment10' %}
+
+{% block page_head_css %}
+    <link rel="stylesheet" href="{{ url_for('assignment10.static', filename='css/assignment10.css') }}"/>
+{% endblock %}
+
+{% block page_body_main_content %}
+{#    {% if message %}#}
+{#            <h4>  {{message}} </h4>#}
+{#    {%endif%}#}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% for category, message in messages %}
+        <div class="flash {{category}}">{{message}}</div>
+    {% endfor %}
+{% endwith%}
+    <h1>assignment10 </h1>
+    <p>This is an example users us page</p>
+       <form action="/insert_user" method="post">
+        <input type="text" name="name" placeholder="Name">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" name="name" placeholder="Insert">
+    </form>
+    <hr>
+    <h2> User List:</h2>
+    <ul>
+        {% for user in users %}
+            <li>
+                <form action="/delete_user" method="post" style="display: inline">
+                    <input type="hidden" name="id" value="{{ user.id }}">
+                    <input type="submit" value="Delete">
+                </form>{{ user.name }},Email: {{ user.email }}</li>
+        {% endfor %}
+
+    </ul>
+
+    <h2> Update  by ID For existing Row:</h2>
+    <form action="/update_user" method="post">
+        <input type="text" name="id" placeholder="ID to change">
+        <input type="text" name="name" placeholder="New Name">
+        <input type="email" name="email" placeholder="New Email">
+        <input type="password" name="password" placeholder="New Password">
+        <input type="submit" name="name" value="Update">
+    </form>
+{% endblock %}
+
+{% block page_body_footer %}{% endblock %}
+
+
+
+{% block page_body_js %}
+    <script src="{{ url_for('assignment10.static', filename='js/assignment10.js') }}"></script>
+{% endblock %}
